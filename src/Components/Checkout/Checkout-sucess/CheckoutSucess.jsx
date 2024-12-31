@@ -97,8 +97,6 @@ const CheckoutSucess = () => {
   return (
     <div id="checksuccess" className="success-container">
       <div className="success-box">
-        {isPaymentSuccess ? (
-          <>
             <div className="check-icon">
               <span>✔️</span>
             </div>
@@ -111,16 +109,6 @@ const CheckoutSucess = () => {
             <button className="back-to-home-btn" onClick={updateOrderInfo}>
               Back to Home
             </button>
-          </>
-        ) : (
-          <>
-            <div className="error-icon">
-              <span>❌</span>
-            </div>
-            <h2>Payment Failed</h2>
-            <p>There was an issue with your payment. Please try again or contact support.</p>
-          </>
-        )}
       </div>
     </div>
   );

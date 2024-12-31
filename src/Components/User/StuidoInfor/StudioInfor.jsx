@@ -68,7 +68,7 @@ const StudioInfor = () => {
     try {
       // Tạo Booking mới
       const createClassPayment = await api.post(
-        `https://localhost:7199/Add-New-Booking`,
+        `/Add-New-Booking`,
         bookingData
       );
   
@@ -90,13 +90,13 @@ const StudioInfor = () => {
         try {
           // Tạo Order mới
           const createOrder = await api.post(
-            `https://localhost:7199/Create-New-Order?BookingId=${booking.id}`
+            `/Create-New-Order?BookingId=${booking.id}`
           );
   
           if (createOrder.status === 200 && createOrder.data && createOrder.data.id) {
             const orderId = createOrder.data.id;
             console.log("Order created successfully, ID:", orderId);
-            setOrderId({ id: orderId }); // Đảm bảo lưu dưới dạng object với `id`
+            setOrderId(orderId); // Đảm bảo lưu dưới dạng object với `id`
           } else {
             console.error("Order creation failed or response is missing 'id'.", createOrder);
           }

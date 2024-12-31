@@ -6,6 +6,7 @@ export default function Header (){
     <div id='Header'>
     <div className="mainHeader">
       <div className="navGroup">
+      <a href="/home">
         <img
           loading="lazy"
           src="\public\logo.jpg"
@@ -13,7 +14,8 @@ export default function Header (){
           alt="Studio logo"
           width={62}
           height={62}
-        />
+          
+        /></a>
         <nav className="navigation" aria-label="Main navigation">
           <button className="navItem">Nav 1</button>
           <button className="navItem">Nav 2</button> 

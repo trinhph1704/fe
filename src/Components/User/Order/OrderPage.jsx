@@ -6,41 +6,30 @@ import "./OrderPage.css";
 
 const OrderPage = () => {
     const [Order, SetOrder] = useState([]);
-    const { bookingId } = useParams();
-    useEffect (() => {
-        const fetchOrder = async () => {
-          const url = "https://localhost:7199/Get-Booking-By-BookingiD?bookingid=0a85bccf-1c20-4614-b076-2df8ec72238e";
-          try {
-            const response = await api.get(url);
-            
-            console.log('API response:', response.data);
-            SetOrder(response.data);
-          } catch (error) {
-            console.error('Error fetching course data:', error);
+    const { orderId } = useParams();
+    const createPaymentLink = async () => {
+      if (orderId) {
+        try {
+          // Tạo đường dẫn PayOS
+          const responsePayOs = await api.post(
+            `/create-payment-link/${orderId}/checkout`
+          );
+  
+          if (responsePayOs.status === 200 && responsePayOs.data && responsePayOs.data.checkoutUrl) {
+            const checkoutUrl = responsePayOs.data.checkoutUrl;
+            console.log("Checkout URL:", checkoutUrl);
+            window.open(checkoutUrl, "_blank"); // Mở trong tab mới
+          } else {
+            console.error(
+              "Payment link creation failed or response is missing 'checkoutUrl'.",
+              responsePayOs
+            );
           }
-        };
-    
-       
-        fetchOrder();
-      }, []);
-
-      const handleBooking = async (e) => { 
-        e.preventDefault();
-        const data = {
-            BookingId:Order.id,
-          };
-        
-          try {
-            const url = 'https://localhost:7199/Create-New-Order';
-            const response = await api.post(url, data);
-            console.log(response.data);
-            alert('Create Order Success!');
-          } catch (error) {
-            console.error(error);
-            alert('Failed to create booking.');
-          }
-
-      };
+        } catch (error) {
+          console.error("Error creating payment link:", error);
+        }
+      }
+    };
 
 
     const studios = [
@@ -135,12 +124,21 @@ return(
 
 
 </div>
+{/* 
 
 
-
-<form onSubmit={handleBooking} className='buttonorder'>
+<form onSubmit={createPaymentLink} className='buttonorder'>
     <button type="submit" className='ordernut'>Request order </button>
-</form>
+</form> */}
+<button 
+        className="ordernut"
+        onClick={createPaymentLink} 
+        tabIndex={0}
+        aria-label="Book this dance class"
+      
+      >
+        Request order
+      </button>
 </div>
 
 

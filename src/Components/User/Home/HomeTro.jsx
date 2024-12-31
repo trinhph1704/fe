@@ -8,7 +8,7 @@ const HomeTro = () => {
   const navigate = useNavigate();
   useEffect (() => {
     const fetchStudio = async () => {
-      const url = "https://localhost:7199/api/Studio/Get-All_Studio";
+      const url = "/api/Studio/Get-All_Studio";
       try {
         const response = await api.get(url);
         console.log('API response:', response.data);
@@ -24,6 +24,9 @@ const HomeTro = () => {
   }, []);
   const handleCardClick = (id) => {
     navigate(`/StudioInfor/${id}`);
+  };
+  const handleCard1Click = (id) => {
+    navigate(`/Course/${id}`);
   };
   const studios = [
     {
@@ -128,7 +131,8 @@ const HomeTro = () => {
         
       <div className="studio-list">
       {studios.map((studio) => (
-        <div className="card" key={studio.id}>
+        <div className="card" key={studio.id}
+        onClick={() => handleCard1Click(studio.id)}>
           <div className="card-image">
             <img src={studio.image} alt={studio.title} />
             <div className="card-price">{studio.price}</div>

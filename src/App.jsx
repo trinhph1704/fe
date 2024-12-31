@@ -18,6 +18,8 @@ import EditStudioPage from './pages/UserPage/EditStudioPage/EditStudioPage';
 import AdminManagerPage from './pages/AdminManagerPage/AdminManagerPage';
 import RevenuePage1 from './pages/UserPage/RevenuePage/RevenuePage1';
 import UpdateuserPage1 from './pages/UserPage/UpdateuserPage1/UpdateuserPage1';
+import CheckoutError from './Components/Checkout/Checkout-error/CheckoutError';
+import ErrorPage from './pages/ErrorPage/ErrorPage';
 
 function App() {
   return (
@@ -34,7 +36,7 @@ function App() {
         {/* Trang Home */}
         <Route path="/Home" element={<HomePage />} />
 
-        <Route path="/Course" element={<CoursePage />} />
+        <Route path="/Course/:studioId" element={<CoursePage />} />
 
         {/* Trang danh sách sản phẩm */}
         <Route path="/Product" element={<ListItemPage />} />
@@ -68,6 +70,7 @@ function App() {
 <Route path="/adminmanager" element={<AdminManagerPage />} />
 <Route path="/revenue" element={<RevenuePage1 />} />
 <Route path="/updateuser" element={<UpdateuserPage1 />} />
+<Route path="/checkout-fail" element={<ErrorPage />} />
 {/* <Route path="/hometro" element={<HomeTro />} /> */}
       </Routes>
     </>

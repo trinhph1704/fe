@@ -4,6 +4,7 @@ import './Course.css';
 import api from '../../utils/requestAPI';
 import useAuth from '../../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 
 const galleryImages = [
@@ -49,6 +50,7 @@ export const Course = () => {
   const [orderId, setOrderId] = useState('');
   const navigate = useNavigate();
   const { auth } = useAuth();
+    const { studioId } = useParams();
 
   const handleImageSelect = (index) => {
     setSelectedImage(index);
@@ -75,67 +77,55 @@ export const Course = () => {
     return `${year}-${month}-${day}`;
 };
 
-  useEffect(() => {
-    async function fetchUserData() {
-        try {
-            // Kiểm tra `auth` và `auth.user` trước khi tiếp tục
-            if (auth && auth.user) {
-                const userid = auth.user.id;
-                console.log(auth.user);
+useEffect(() => {
+  async function fetchUserData() {
+      try {
+          const responseStudio = await api.get(`/api/Studio/Get-Studio-By-Id?id=${studioId}`);
+          const allStudio = responseStudio.data.accountId;
 
-                // Đảm bảo `userid` có giá trị trước khi gọi API
-                if (!userid) {
-                    console.error("User ID is undefined!");
-                    return;
-                }
+          // Gọi API lấy thông tin user
+          const url = `/api/Account/get-by-id?accountId=${allStudio}`;
+          const response = await api.get(url);
 
-                const url = `https://localhost:7199/api/Account/get-by-id?accountId=${userid}`;
-                const response = await api.get(url);
-                if (response.status === 200 && response.data) {
-                  setUser(response.data);
-              }else{
-                console.log("Setuser have something wrong")
+          if (response.status === 200 && response.data) {
+              setUser(response.data); // Cập nhật user
+          } else {
+              console.log("Setuser have something wrong");
+          }
+      } catch (error) {
+          console.error("Error fetching user data:", error);
+      }
+  }
+
+  fetchUserData();
+}, [studioId]); // Theo dõi studioId, nếu studioId thay đổi thì gọi lại fetchUserData
+
+// Theo dõi sự thay đổi của `user`
+useEffect(() => {
+  async function fetchClassData() {
+      try {
+          if (user) {
+              const responseClass = await api.get("/Get-All-ClassDance");
+              const allClass = responseClass.data.$values || [];
+              const userClass = allClass.filter(order => order.studioId === studioId);
+              setClass(userClass);
+
+              if (userClass.length > 0) {
+                  const classId = userClass[0]?.id;
+                  const responseClassId = await api.get(`/Get-ClassDance-By-Id?classId=${classId}`);
+                  if (responseClassId.status === 200 && responseClassId.data) {
+                      setClassId(responseClassId.data); // Cập nhật classId
+                  }
               }
-                const responseStudio = await api.get("https://localhost:7199/api/Studio/Get-All_Studio");
-          const allStuido = responseStudio.data.$values;
-          const userStudios = allStuido.filter(order => order.accountId === auth.user.id);
-          setStudios(userStudios);
-          if (userStudios.length > 0) {
-            const studioId1 = userStudios[0].id;
-            const responseClass = await api.get("https://localhost:7199/Get-All-ClassDance");
-            const allClass = responseClass.data.$values || [];
-            const userClass = allClass.filter(order => order.studioId === studioId1);
-            setClass(userClass);
+          }
+      } catch (error) {
+          console.error("Error fetching class data:", error);
+      }
+  }
 
-            if (userClass.length > 0) {
-                const classId = userClass[0].id;
-                const responseClassId = await api.get(`https://localhost:7199/Get-ClassDance-By-Id?classId=${classId}`);
-                if (responseClassId.status === 200 && responseClassId.data) {
-                    setClassId(responseClassId.data);
-                }
-            }
-            // console.log("Fetched User ID:", userid);
-            //     console.log("Fetched User Data:", response.data);
-            //     console.log("Fetched User Studio:", studio[0].id);
-            //     console.log("Fetched User Studio:", allStuido);
-            //     console.log("Fetched User Class:", Class[0].id);
-            //     console.log("Fetched User Class:", allClass);
-            //     console.log("âsasasas:",  ClassId[0].id);
-        }
-    } else {
-        console.warn("auth or auth.user is undefined");
-    }
-        } catch (error) {
-            console.error("Error fetching user data:", error);
-            // console.log("Fetched User Class:", Class[0].id);
-        }
-    }
+  fetchClassData();
+}, [user, studioId]); // Theo dõi `user` và `studioId`
 
-    // Chỉ gọi fetchUserData khi `auth` có giá trị
-    if (auth) {
-        fetchUserData();
-    }
-}, [auth]);
 
 const handlePayment = async () => {
   try {
@@ -151,7 +141,7 @@ const handlePayment = async () => {
 
     // Tạo Booking mới
     const createClassPayment = await api.post(
-      `https://localhost:7199/Add-New-Booking-ClassDance`,
+      `/Add-New-Booking-ClassDance`,
       data_userArtwok
     );
 
@@ -174,7 +164,7 @@ useEffect(() => {
       try {
         // Tạo Order mới
         const createOrder = await api.post(
-          `https://localhost:7199/Create-New-Order?BookingId=${classBooking.id}`
+          `/Create-New-Order?BookingId=${classBooking.id}`
         );
 
         if (createOrder.status === 200 && createOrder.data && createOrder.data.id) {
@@ -200,7 +190,7 @@ useEffect(() => {
       try {
         // Tạo đường dẫn PayOS
         const responsePayOs = await api.post(
-          `https://localhost:7199/create-payment-link/${orderId.id}/checkout`
+          `/create-payment-link/${orderId.id}/checkout`
         );
 
         if (responsePayOs.status === 200 && responsePayOs.data && responsePayOs.data.checkoutUrl) {

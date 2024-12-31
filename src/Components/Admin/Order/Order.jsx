@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
+import { useParams } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import './Order.css';
+import api from '../../utils/requestAPI';
 
 // Mock product prices for calculating total prices
 const prices = {
@@ -10,11 +12,13 @@ const prices = {
     "3": 369000,
     // Add other product prices if needed
 };
+    
 
 const OrderList = () => {
     const [orders, setOrders] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentOrder, setCurrentOrder] = useState(null);
+    const { orderId } = useParams();
 
     // Fetch users with roleId = 1 and extract their orders
     useEffect(() => {
@@ -38,6 +42,8 @@ const OrderList = () => {
 
         fetchUsers();
     }, []);
+
+    
 
     // Format price in VND
     const formatPrice = (price) => `${Number(price).toLocaleString()} VNĐ`;

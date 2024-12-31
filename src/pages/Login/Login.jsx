@@ -17,7 +17,7 @@ const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const url = 'https://localhost:7199/api/Account/log-in';
+    const url = '/api/Account/log-in';
     const data = {
       email: email,
       password: password
@@ -57,7 +57,7 @@ useEffect(() => {
       try {
           var decode = jwtDecode(authen);
           var userid = decode.AccountID;
-          const url = `https://localhost:7199/api/Account/get-by-id?accountId=${userid}`;
+          const url = `/api/Account/get-by-id?accountId=${userid}`;
           // const paymentUrl = `/api/Payment/get-payment?OrderId=${cartItems[0]?.orderId}`;
           const headers = {
               'accept': '*/*',
