@@ -9,7 +9,7 @@ export default function Header (){
       <a href="/home">
         <img
           loading="lazy"
-          src="\public\logo.jpg"
+          src="https://ava-grp-talk.zadn.vn/a/1/9/8/4/360/36650c664e257c37760d0f7a27fe0a8d.jpg"
           className="logo"
           alt="Studio logo"
           width={62}

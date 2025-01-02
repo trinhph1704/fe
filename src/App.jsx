@@ -57,7 +57,7 @@ function App() {
         
 
         {/* Trang checkSucess */}
-        <Route path="/checkout-success" element={<SucessPage />} />
+        <Route path="/hometro" element={<SucessPage />} />
 
         <Route path="/Studio" element={<StudioPage />} />
 
@@ -70,7 +70,7 @@ function App() {
 <Route path="/adminmanager" element={<AdminManagerPage />} />
 <Route path="/revenue" element={<RevenuePage1 />} />
 <Route path="/updateuser" element={<UpdateuserPage1 />} />
-<Route path="/checkout-fail" element={<ErrorPage />} />
+<Route path="/checkcancel" element={<ErrorPage />} />
 {/* <Route path="/hometro" element={<HomeTro />} /> */}
       </Routes>
     </>
