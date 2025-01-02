@@ -17,21 +17,21 @@ const galleryImages = [
 const reviews = [
   {
     id: 1,
-    avatar: "/public/duc.jpg",
+    avatar: "https://www.elle.vn/app/uploads/2022/08/15/491817/co-gai-moc-mac-trong-hinh-nen-dien-thoai-scaled.jpg",
     name: "Mr Trịnh",
     date: "Mar 12 2020",
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
   },
   {
     id: 2,
-    avatar: "/public/duc.jpg",
+    avatar: "https://www.elle.vn/app/uploads/2022/08/15/491817/co-gai-moc-mac-trong-hinh-nen-dien-thoai-scaled.jpg",
     name: "J97",
     date: "Mar 12 2020",
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
   },
   {
     id: 3,
-    avatar: "/public/duc.jpg",
+    avatar: "https://www.elle.vn/app/uploads/2022/08/15/491817/co-gai-moc-mac-trong-hinh-nen-dien-thoai-scaled.jpg",
     name: "Trịnh Trần Phương Tuấn",
     date: "Mar 12 2020",
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
@@ -136,7 +136,7 @@ const handlePayment = async () => {
       bookingDate: getTodayDate(),
       checkIn: "String",
       checkOut: "String",
-      totalPrice: "500",
+      totalPrice: "2000",
     };
 
     // Tạo Booking mới
@@ -232,7 +232,7 @@ useEffect(() => {
             </div> */}
             <div className="hostInfo">
               <img
-                src="\public\duc.jpg"
+                src="https://chiemtaimobile.vn/images/companies/1/%E1%BA%A2nh%20Blog/avatar-facebook-dep/Anh-dai-dien-ngau-chat-cho-con-trai-hut-thuoc.jpg?1704788544123"
                 alt="Host Valentino Jr"
                 className="hostAvatar"
                 loading="lazy"

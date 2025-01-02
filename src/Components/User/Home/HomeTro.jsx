@@ -31,7 +31,7 @@ const HomeTro = () => {
   const studios = [
     {
       id: "stu1",
-      image: "public/0f867cb427035cc0008c7757df861157.jpg",
+      image: "https://vkingdecor.com/wp-content/uploads/2024/12/89a00a01a5d266e8a4e8a5072795cd55.jpg", 
       price: "From 100$/hr",
       title: "Flow Dance",
       address: "123 Main St, Cityville",
@@ -42,7 +42,7 @@ const HomeTro = () => {
     },
     {
       id: 2,
-      image: "public/ee53ddddc8801eaa90470f5c25934df9.jpg",
+      image: "https://vkingdecor.com/wp-content/uploads/2024/12/89a00a01a5d266e8a4e8a5072795cd55.jpg",
       price: "From 150$/hr",
       title: "Harmony Studio",
       address: "456 Park Ave, Townsville",
@@ -53,7 +53,7 @@ const HomeTro = () => {
     },
     {
       id: 3,
-      image: "public/0f867cb427035cc0008c7757df861157.jpg",
+      image: "https://vkingdecor.com/wp-content/uploads/2024/12/89a00a01a5d266e8a4e8a5072795cd55.jpg",
       price: "From 120$/hr",
       title: "Rhythm Hub",
       address: "789 Broadway, Metropolis",

@@ -19,26 +19,26 @@ const StudioInfor = () => {
   const { id } = useParams();
 
   const images = [
-    { src: "/public/ee53ddddc8801eaa90470f5c25934df9.jpg", name: "Hình 1" },
-    { src: "/public/ee53ddddc8801eaa90470f5c25934df9.jpg", name: "Hình 2" },
-    { src: "/public/ee53ddddc8801eaa90470f5c25934df9.jpg", name: "Hình 3" },
-    { src: "/public/ee53ddddc8801eaa90470f5c25934df9.jpg", name: "Hình 4" },
-    { src: "/public/ee53ddddc8801eaa90470f5c25934df9.jpg", name: "Hình 5" },
-    { src: "/public/ee53ddddc8801eaa90470f5c25934df9.jpg", name: "Hình 5" },
-    { src: "/public/ee53ddddc8801eaa90470f5c25934df9.jpg", name: "Hình 5" },
-    { src: "/public/ee53ddddc8801eaa90470f5c25934df9.jpg", name: "Hình 5" },
+    { src: "https://vkingdecor.com/wp-content/uploads/2024/12/89a00a01a5d266e8a4e8a5072795cd55.jpg", name: "Hình 1" },
+    { src: "https://vkingdecor.com/wp-content/uploads/2024/12/89a00a01a5d266e8a4e8a5072795cd55.jpg", name: "Hình 2" },
+    { src: "https://vkingdecor.com/wp-content/uploads/2024/12/89a00a01a5d266e8a4e8a5072795cd55.jpg", name: "Hình 3" },
+    { src: "https://vkingdecor.com/wp-content/uploads/2024/12/89a00a01a5d266e8a4e8a5072795cd55.jpg", name: "Hình 4" },
+    { src: "https://vkingdecor.com/wp-content/uploads/2024/12/89a00a01a5d266e8a4e8a5072795cd55.jpg", name: "Hình 5" },
+    { src: "https://vkingdecor.com/wp-content/uploads/2024/12/89a00a01a5d266e8a4e8a5072795cd55.jpg", name: "Hình 5" },
+    { src: "https://vkingdecor.com/wp-content/uploads/2024/12/89a00a01a5d266e8a4e8a5072795cd55.jpg", name: "Hình 5" },
+    { src: "https://vkingdecor.com/wp-content/uploads/2024/12/89a00a01a5d266e8a4e8a5072795cd55.jpg", name: "Hình 5" },
   ];
   const dancerMasters = [
-    { img: "/public/ec46334718d4ee1a37ca49cd652a194d.jpg",name: "Alice Johnson", specialty: "Hip Hop" },
-    {img: "/public/0f84d7257569027cfba8ab80b5f2af88.jpg", name: "Bob Smith", specialty: "Ballet" },
-    { img: "/public/92075231ccb6efb21748b2e7f2d9cdbd.jpg",name: "Charlie Brown", specialty: "Contemporary" },
-    { img: "/public/7ba53e7463b4afd2c728f9beb59b65ac.jpg",name: "Diana Prince", specialty: "Jazz" },
+    { img: "https://chiemtaimobile.vn/images/companies/1/%E1%BA%A2nh%20Blog/avatar-facebook-dep/Anh-avatar-hoat-hinh-de-thuong-co-be-doi-mu.jpeg?1704788068824",name: "Alice Johnson", specialty: "Hip Hop" },
+    {img: "https://chiemtaimobile.vn/images/companies/1/%E1%BA%A2nh%20Blog/avatar-facebook-dep/Anh-avatar-hoat-hinh-de-thuong-co-be-doi-mu.jpeg?1704788068824", name: "Bob Smith", specialty: "Ballet" },
+    { img: "https://chiemtaimobile.vn/images/companies/1/%E1%BA%A2nh%20Blog/avatar-facebook-dep/Anh-avatar-hoat-hinh-de-thuong-co-be-doi-mu.jpeg?1704788068824",name: "Charlie Brown", specialty: "Contemporary" },
+    { img: "https://chiemtaimobile.vn/images/companies/1/%E1%BA%A2nh%20Blog/avatar-facebook-dep/Anh-avatar-hoat-hinh-de-thuong-co-be-doi-mu.jpeg?1704788068824",name: "Diana Prince", specialty: "Jazz" },
   ];
   const Reviewer = [
 
-{ img: "/public/ec46334718d4ee1a37ca49cd652a194d.jpg", date:"12/10/2024", name:"Mr Vinh", cmt:"Great studio with amazing amenities!"    },
-{ img: "/public/0f84d7257569027cfba8ab80b5f2af88.jpg", date:"13/10/2024", name:"Meo Meo", cmt:"Excellent location and service."    },
-{ img: "/public/92075231ccb6efb21748b2e7f2d9cdbd.jpg", date:"14/10/2024", name:"Trịnh Trần Phương Tuấn", cmt:"Wonderful experience. Highly recommend!"    },
+{ img: "https://chiemtaimobile.vn/images/companies/1/%E1%BA%A2nh%20Blog/avatar-facebook-dep/Anh-avatar-hoat-hinh-de-thuong-co-be-doi-mu.jpeg?1704788068824", date:"12/10/2024", name:"Mr Vinh", cmt:"Great studio with amazing amenities!"    },
+{ img: "https://chiemtaimobile.vn/images/companies/1/%E1%BA%A2nh%20Blog/avatar-facebook-dep/Anh-avatar-hoat-hinh-de-thuong-co-be-doi-mu.jpeg?1704788068824", date:"13/10/2024", name:"Meo Meo", cmt:"Excellent location and service."    },
+{ img: "https://chiemtaimobile.vn/images/companies/1/%E1%BA%A2nh%20Blog/avatar-facebook-dep/Anh-avatar-hoat-hinh-de-thuong-co-be-doi-mu.jpeg?1704788068824", date:"14/10/2024", name:"Trịnh Trần Phương Tuấn", cmt:"Wonderful experience. Highly recommend!"    },
 
 
 
