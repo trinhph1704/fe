@@ -196,7 +196,7 @@ useEffect(() => {
         if (responsePayOs.status === 200 && responsePayOs.data && responsePayOs.data.checkoutUrl) {
           const checkoutUrl = responsePayOs.data.checkoutUrl;
           console.log("Checkout URL:", checkoutUrl);
-          window.open(checkoutUrl, "_blank"); // Mở trong tab mới
+          window.location.href = checkoutUrl;
         } else {
           console.error(
             "Payment link creation failed or response is missing 'checkoutUrl'.",
