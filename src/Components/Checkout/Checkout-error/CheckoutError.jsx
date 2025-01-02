@@ -44,7 +44,7 @@ const CheckoutError = () => {
   }, [ location.search]);
 
   const handleRetry = () => {
-    navigate("/checkout-fail");
+    navigate("/Home");
   };
 
   return (
