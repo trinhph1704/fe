@@ -29,7 +29,7 @@ export default function Header() {
           </a>
           <nav className="navigation" aria-label="Main navigation">
             <button className="navItem">TRANG CHỦ</button>
-            <button className="navItem">LỚP NHẢY</button>
+            <button className="navItem"><a href="/Course" >LỚP NHẢY</a></button>
             <button className="navItem">TIN TỨC</button>
             <button className="navItem">LIÊN HỆ</button>
           </nav>
@@ -88,10 +88,11 @@ export default function Header() {
               ) : (
                 <div className="auth-buttons">
                   <button className="login-button">
-                  <Link to="/Login" >Login</Link>
+                  <a href="/Login" >Đăng Nhập</a>
+
                   </button>
                   <button className="signup-button">
-                  <Link to="/Signup">Sign up</Link>
+                  <a href="/Signup" >Đăng Ký</a>
                   </button>
                 </div>
               )}

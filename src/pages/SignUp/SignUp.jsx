@@ -1,17 +1,42 @@
 import React, { useState } from 'react';
+import api from '../../Components/utils/requestAPI';
 import './signup.css'; // Thêm style CSS nếu cần thiết
-// import P35 from '../../../public/Product/35.png';
+import useAuth from '../../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
+  const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  const { setAuth } = useAuth();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle login form submission
-    console.log({ email, password, rememberMe });
-  };
+    const url = '/api/Account/registration';
+    const data = {
+      username : userName,
+      email: email,
+      password: password,
+      confirmPassword : confirmPassword,
+      roleId : "1"
+    };
+    console.log({ userName,email, password, confirmPassword });
+
+    try {
+      const response = await api.post(url, data);
+      setAuth({ user: response.data, authen: true });
+      alert("Bạn Đã Đăng Ký Tài Khoản Thành Công");
+      navigate('/login');
+    } catch (error) {
+      console.error(error);
+      alert("Đã xảy ra lỗi khi đăng ký!");
+    }
+}
+  
 
   return (
     <div id="Signup" >
@@ -46,19 +71,19 @@ const Signup = () => {
           <div className="input-group">
               <label htmlFor="loginPassword">Họ Tên</label>
               <input
-                type="password"
+                type="text"
                 id="loginPassword"
                 required
                 placeholder="Nhập Họ Tên Của Bạn"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
               />
             </div>
 
             <div className="input-group">
               <label htmlFor="emailAddress">Tên Đăng Nhập</label>
               <input
-                type="email"
+                type="text"
                 id="emailAddress"
                 required
                 placeholder="Nhập Tài Khoản"
@@ -75,6 +100,17 @@ const Signup = () => {
                 placeholder="Nhập Mật Khẩu"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div className="input-group">
+              <label htmlFor="confirmPassword">Xác Nhận Mật Khẩu</label>
+              <input
+                type="password"
+                id="confirmPassword"
+                required
+                placeholder="Nhập Lại Mật Khẩu"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </div>
             

@@ -36,7 +36,7 @@ function App() {
         {/* Trang Home */}
         <Route path="/Home" element={<HomePage />} />
 
-        <Route path="/Course/:studioId" element={<CoursePage />} />
+        <Route path="/Course" element={<CoursePage />} />
 
         {/* Trang danh sách sản phẩm */}
         <Route path="/Product" element={<ListItemPage />} />

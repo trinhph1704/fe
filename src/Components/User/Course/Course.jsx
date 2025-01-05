@@ -48,6 +48,7 @@ export const Course = () => {
   const [ClassId, setClassId] = useState('');
   const [classBooking, setclassBooking] = useState([]);
   const [orderId, setOrderId] = useState('');
+  const [role, setRole] = useState([]);
   const navigate = useNavigate();
   const { auth } = useAuth();
     const { studioId } = useParams();
@@ -78,138 +79,195 @@ export const Course = () => {
 };
 
 useEffect(() => {
-  async function fetchUserData() {
-      try {
-          const responseStudio = await api.get(`/api/Studio/Get-Studio-By-Id?id=${studioId}`);
-          const allStudio = responseStudio.data.accountId;
+  async function fetchData() {
+    try {
+      // Gọi API đồng thời để lấy dữ liệu
+      const [accounts, classes, studios] = await fetchAllData();
 
-          // Gọi API lấy thông tin user
-          const url = `/api/Account/get-by-id?accountId=${allStudio}`;
-          const response = await api.get(url);
+      // Lọc dữ liệu
+      const roleAccounts = filterAccountsByRole(accounts, "3");
+      const classAccounts = filterAccountsByClass(roleAccounts, classes);
+      const studiosOfUser = filterStudiosByClasses(classAccounts, studios);
 
-          if (response.status === 200 && response.data) {
-              setUser(response.data); // Cập nhật user
-          } else {
-              console.log("Setuser have something wrong");
-          }
-      } catch (error) {
-          console.error("Error fetching user data:", error);
+      if (studiosOfUser.length > 0) {
+        const firstStudio = studiosOfUser[0];
+        const userClasses = filterClassesByStudio(firstStudio.id, classes);
+
+        if (userClasses.length > 0) {
+          const firstClass = userClasses[0];
+          const classDetails = await fetchClassDetails(firstClass.id);
+          const studioDetails = await fetchStudioDetails(classDetails.studioId);
+          const userDetails = await fetchAccountDetails(studioDetails.accountId);
+
+          // Lưu kết quả vào state
+          setRole(classAccounts);
+          setStudios(studiosOfUser);
+          setClass(userClasses);
+          setClassId(classDetails);
+          setUser(userDetails);
+        }
       }
+    } catch (error) {
+      console.error("Lỗi khi lấy dữ liệu:", error);
+    }
   }
 
-  fetchUserData();
-}, [studioId]); // Theo dõi studioId, nếu studioId thay đổi thì gọi lại fetchUserData
+  fetchData();
 
-// Theo dõi sự thay đổi của `user`
-useEffect(() => {
-  async function fetchClassData() {
-      try {
-          if (user) {
-              const responseClass = await api.get("/Get-All-ClassDance");
-              const allClass = responseClass.data.$values || [];
-              const userClass = allClass.filter(order => order.studioId === studioId);
-              setClass(userClass);
-
-              if (userClass.length > 0) {
-                  const classId = userClass[0]?.id;
-                  const responseClassId = await api.get(`/Get-ClassDance-By-Id?classId=${classId}`);
-                  if (responseClassId.status === 200 && responseClassId.data) {
-                      setClassId(responseClassId.data); // Cập nhật classId
-                  }
-              }
-          }
-      } catch (error) {
-          console.error("Error fetching class data:", error);
-      }
+  // Tách logic thành các hàm con
+  async function fetchAllData() {
+    const [responseAccount, responseClass, responseStudio] = await Promise.all([
+      api.get("/api/Account/Get-All"),
+      api.get("/Get-All-ClassDance"),
+      api.get("/api/Studio/Get-All_Studio"),
+    ]);
+    return [
+      responseAccount.data.$values || [],
+      responseClass.data.$values || [],
+      responseStudio.data.$values || [],
+    ];
   }
 
-  fetchClassData();
-}, [user, studioId]); // Theo dõi `user` và `studioId`
+  function filterAccountsByRole(accounts, roleId) {
+    return accounts.filter((account) => account.roleId === roleId);
+  }
+
+  function filterAccountsByClass(accounts, classes) {
+    return classes.filter((classDance) =>
+      accounts.some((account) => account.id === classDance.accountId)
+    );
+  }
+
+  function filterStudiosByClasses(classes, studios) {
+    return studios.filter((studio) =>
+      classes.some((classDance) => classDance.studioId === studio.id)
+    );
+  }
+
+  function filterClassesByStudio(studioId, classes) {
+    return classes.filter((classDance) => classDance.studioId === studioId);
+  }
+
+  async function fetchClassDetails(classId) {
+    const response = await api.get(`/Get-ClassDance-By-Id?classId=${classId}`);
+    if (response.status === 200 && response.data) {
+      return response.data;
+    }
+    throw new Error("Không thể lấy thông tin lớp học.");
+  }
+
+  async function fetchStudioDetails(studioId) {
+    const response = await api.get(`/api/Studio/Get-Studio-By-Id?id=${studioId}`);
+    if (response.status === 200 && response.data) {
+      return response.data;
+    }
+    throw new Error("Không thể lấy thông tin studio.");
+  }
+
+  async function fetchAccountDetails(accountId) {
+    const response = await api.get(`/api/Account/get-by-id?accountId=${accountId}`);
+    if (response.status === 200 && response.data) {
+      return response.data;
+    }
+    throw new Error("Không thể lấy thông tin tài khoản.");
+  }
+}, []);
+// Chạy 1 lần khi component mount
+
+// useEffect để theo dõi khi user thay đổi
+// useEffect(() => {
+//   if (user && user.length > 0) {
+//     console.log("USER OF STUDIO:", user);
+//   } else {
+//     console.log("No user found or user is empty");
+//   }
+// }, [user]);
+
 
 
 const handlePayment = async () => {
-  try {
-    // Thông tin truyền vào POST
-    const data_userArtwok = {
-      accountId: auth.user.id,
-      classDanceId: ClassId.id,
-      bookingDate: getTodayDate(),
-      checkIn: "String",
-      checkOut: "String",
-      totalPrice: "2000",
-    };
+try {
+  // Thông tin truyền vào POST
+  const data_userArtwok = {
+    accountId: auth.user.id,
+    classDanceId: ClassId.id,
+    bookingDate: getTodayDate(),
+    checkIn: "String",
+    checkOut: "String",
+    totalPrice: "500",
+  };
 
-    // Tạo Booking mới
-    const createClassPayment = await api.post(
-      `/Add-New-Booking-ClassDance`,
-      data_userArtwok
-    );
+  // Tạo Booking mới
+  const createClassPayment = await api.post(
+    `/Add-New-Booking-ClassDance`,
+    data_userArtwok
+  );
 
-    if (createClassPayment.status === 200 && createClassPayment.data && createClassPayment.data.id) {
-      const cBookingId = createClassPayment.data.id;
-      console.log("cBooking created successfully, ID:", cBookingId);
-      setclassBooking({ id: cBookingId }); // Đảm bảo lưu dưới dạng object với `id`
-    } else {
-      console.error("cBooking creation failed or response is missing 'id'.", createClassPayment);
-    }
-  } catch (error) {
-    console.error("Error creating booking:", error);
+  if (createClassPayment.status === 200 && createClassPayment.data && createClassPayment.data.id) {
+    const cBookingId = createClassPayment.data.id;
+    console.log("cBooking created successfully, ID:", cBookingId);
+    setclassBooking({ id: cBookingId }); // Đảm bảo lưu dưới dạng object với `id`
+  } else {
+    console.error("cBooking creation failed or response is missing 'id'.", createClassPayment);
   }
+} catch (error) {
+  console.error("Error creating booking:", error);
+}
 };
 
 useEffect(() => {
-  // Theo dõi sự thay đổi của `classBooking`
-  const createOrderAndPayment = async () => {
-    if (classBooking && classBooking.id) {
-      try {
-        // Tạo Order mới
-        const createOrder = await api.post(
-          `/Create-New-Order?BookingId=${classBooking.id}`
-        );
+// Theo dõi sự thay đổi của `classBooking`
+const createOrderAndPayment = async () => {
+  if (classBooking && classBooking.id) {
+    try {
+      // Tạo Order mới
+      const createOrder = await api.post(
+        `/Create-New-Order?BookingId=${classBooking.id}`
+      );
 
-        if (createOrder.status === 200 && createOrder.data && createOrder.data.id) {
-          const orderId = createOrder.data.id;
-          console.log("Order created successfully, ID:", orderId);
-          setOrderId({ id: orderId }); // Đảm bảo lưu dưới dạng object với `id`
-        } else {
-          console.error("Order creation failed or response is missing 'id'.", createOrder);
-        }
-      } catch (error) {
-        console.error("Error creating order:", error);
+      if (createOrder.status === 200 && createOrder.data && createOrder.data.id) {
+        const orderId = createOrder.data.id;
+        console.log("Order created successfully, ID:", orderId);
+        setOrderId({ id: orderId }); // Đảm bảo lưu dưới dạng object với `id`
+      } else {
+        console.error("Order creation failed or response is missing 'id'.", createOrder);
       }
+    } catch (error) {
+      console.error("Error creating order:", error);
     }
-  };
+  }
+};
 
-  createOrderAndPayment();
+createOrderAndPayment();
 }, [classBooking]);
 
 useEffect(() => {
-  // Theo dõi sự thay đổi của `orderId`
-  const createPaymentLink = async () => {
-    if (orderId && orderId.id) {
-      try {
-        // Tạo đường dẫn PayOS
-        const responsePayOs = await api.post(
-          `/create-payment-link/${orderId.id}/checkout`
+// Theo dõi sự thay đổi của `orderId`
+const createPaymentLink = async () => {
+  if (orderId && orderId.id) {
+    try {
+      // Tạo đường dẫn PayOS
+      const responsePayOs = await api.post(
+        `/create-payment-link/${orderId.id}/checkout`
+      );
+
+      if (responsePayOs.status === 200 && responsePayOs.data && responsePayOs.data.checkoutUrl) {
+        const checkoutUrl = responsePayOs.data.checkoutUrl;
+        console.log("Checkout URL:", checkoutUrl);
+        window.open(checkoutUrl, "_blank"); // Mở trong tab mới
+      } else {
+        console.error(
+          "Payment link creation failed or response is missing 'checkoutUrl'.",
+          responsePayOs
         );
-
-        if (responsePayOs.status === 200 && responsePayOs.data && responsePayOs.data.checkoutUrl) {
-          const checkoutUrl = responsePayOs.data.checkoutUrl;
-          console.log("Checkout URL:", checkoutUrl);
-          window.location.href = checkoutUrl;
-        } else {
-          console.error(
-            "Payment link creation failed or response is missing 'checkoutUrl'.",
-            responsePayOs
-          );
-        }
-      } catch (error) {
-        console.error("Error creating payment link:", error);
       }
+    } catch (error) {
+      console.error("Error creating payment link:", error);
     }
-  };
+  }
+};
 
-  createPaymentLink();
+createPaymentLink();
 }, [orderId]);
 
 
