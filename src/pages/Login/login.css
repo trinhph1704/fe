@@ -75,14 +75,15 @@
 /* Login Form styles */
 #Login .login-form {
   background: white;
-  padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-top: -100px; /* This makes the login form appear slightly over the Hero section */
-  position: fixed;
-  right: 100px;
-  top: 200px;
-  width: 35%;
+padding: 40px;
+border-radius: 8px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+width: 35%;
+
   
 }
 

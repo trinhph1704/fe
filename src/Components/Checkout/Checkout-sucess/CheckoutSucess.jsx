@@ -53,14 +53,15 @@ const CheckoutSucess = () => {
             <div className="check-icon">
               <span>✔️</span>
             </div>
-            <h2>Payment Successful!</h2>
+            <h2>Bạn Đã Thanh</h2>
+            <h2>Toán Thành Công</h2>
             <div className="transaction-info">
-              <p><strong>Transaction ID:</strong> {trancode}</p>
+              {/* <p><strong>Transaction ID:</strong> {trancode}</p> */}
               {/* <p><strong>Transaction Time:</strong> {transactionTime}</p> */}
             </div>
             {/* Back to Home Button */}
             <button className="back-to-home-btn" onClick={Back}>
-              Back to Home
+              Quay Lại Trang Chủ
             </button>
       </div>
     </div>

@@ -97,6 +97,7 @@
   border: 1px solid #EFF0F2;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  margin-right: 30px;
 }
 
 #Header .hostButton:hover {
@@ -183,4 +184,40 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+#Header .auth-buttons {
+  display: flex;
+  gap: 15px;
+  /* margin-right: 20px; */
+}
+#Header .login-button,
+#Header .signup-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 20px;
+  font-weight: bold;
+  animation: fadeInLeft 2s ease-in-out;
+}
+
+#Header .login-button {
+  background-color: #9747FF;
+  color: white;
+}
+
+#Header .signup-button {
+  background-color: white;
+  color: #AD49E1;
+  border: 2px solid #9747FF;
+}
+
+#Header .login-button:hover {
+  background-color: white;
+  color: #9747FF;
+}
+
+#Header .signup-button:hover {
+  background-color: #e6e6ff;
 }

@@ -240,9 +240,9 @@ useEffect(() => {
                 height={76}
               />
               <div className="hostDetails">
-                <span className="listedBy">Listed By:</span>
+                {/* <span className="listedBy">Listed By:</span> */}
                 <h2 className="hostName">{user?.userName}</h2>
-                <span className="priceRange">For: $ 1000 - $ 5000</span>
+                {/* <span className="priceRange">For: $ 1000 - $ 5000</span> */}
               </div>
             </div>
           </div>
@@ -267,8 +267,8 @@ useEffect(() => {
                   <div className="moreOverlay">
                     <span className="moreCount">+2</span>
                     <div className="moreText">
-                      <span>More</span>
-                      <span>Photos</span>
+                      <span>Hình Ảnh</span>
+                      {/* <span>Photos</span> */}
                     </div>
                   </div>
                 )}
@@ -283,7 +283,7 @@ useEffect(() => {
             <div className="titleHeader">
             <div className="titleContainer">
               <h1 className="className">{ClassId.className}</h1>
-              <p className="teacherName">Teacher name</p>
+              <p className="teacherName">Nguyễn Việt Anh</p>
               </div>
               <div className="actionButtons">
   <button className="actionIcon" tabIndex="0">
@@ -307,7 +307,7 @@ useEffect(() => {
 </div>
 </div>
   
-              <h2 className="sectionTitle">Course Description</h2>
+              <h2 className="sectionTitle">Thông Tin Lớp Học</h2>
               <p className="description">
                 {ClassId.description}
               </p>
@@ -315,7 +315,7 @@ useEffect(() => {
 
             <section className="reviewsSection" aria-labelledby="reviewsTitle">
               <div className="reviewsHeader">
-                <h2 id="reviewsTitle" className="reviewsTitle">Reviews</h2>
+                <h2 id="reviewsTitle" className="reviewsTitle">Đánh Giá</h2>
                 <div className="rating">
                   <img
                     src="\public\star.png"
@@ -357,7 +357,7 @@ useEffect(() => {
                 className="showAllButton"
                 aria-label="Show all 100 reviews"
               >
-                Show All 100 Reviews
+                Xem thêm đánh giá
               </button>
             </section>
           </div>
@@ -365,34 +365,35 @@ useEffect(() => {
           <div className="rightColumnCover">
           <div className="priceContainer">
       <div className="priceHeader">
-        <img
+        {/* <img
           loading="lazy"
           src="https://cdn.builder.io/api/v1/image/assets/TEMP/b924c4810595165877c0ee0cb66d62f8fcf049b8e44824705f472789c1e5d0ea?placeholderIfAbsent=true&apiKey=c05fb6b607a34c3cab6bc37bd3664ed7"
           className="priceIcon"
           alt="Price icon"
-        />
-        <div>Price</div>
+        /> */}
+        <div>Khóa Học </div>
+        {/* {ClassId.className} */}
       </div>
       
       <div className="feeContainer">
-        <div className="courseFee">Course Fee</div>
+        <div className="courseFee">Chi Phí Khóa Học</div>
         {/* <div className="priceTag">$500</div> */}
-        <div className="priceTag">${ClassId.pricing}</div>
+        <div className="priceTag">{ClassId.pricing} VND</div>
       </div>
       
       <div className="detailsContainer">
         <div className="leftColumn">
           <div>{ClassId.timeStart}A-{ClassId.timeEnd}A</div>
-          <div className="skillLevel">skill level</div>
-          <div className="classDay">class day</div>
-          <div className="danceStyle">Style</div>
+          <div className="skillLevel">Trình Độ</div>
+          <div className="classDay">Ngày Học</div>
+          <div className="danceStyle">Phong Cách</div>
         </div>
         <div className="rightColumn">
           <div className="rightInner">
             <div className="startDate">{ClassId.dateStart}</div>
-            <div className="basic">Basic</div>
+            <div className="basic">Cơ Bản</div>
           </div>
-          <div className="schedule">Monday-Friday</div>
+          <div className="schedule">Thứ Hai - Thứ Sáu</div>
           <div className="hiphop">Hiphop</div>
         </div>
       </div>
@@ -404,7 +405,7 @@ useEffect(() => {
         aria-label="Book this dance class"
       
       >
-        BUYING
+        Mua Khóa Học
       </button>
     </div>
           </div>

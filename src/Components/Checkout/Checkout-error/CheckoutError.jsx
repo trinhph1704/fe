@@ -53,10 +53,10 @@ const CheckoutError = () => {
             <div className="error-icon">
               <span>❌</span>
             </div>
-            <h2>Payment Failed</h2>
-            <p>There was an issue with your payment. Please try again or contact support.</p>
+            <h2>Bạn Đã Hũy Thanh Toán Hoặc Bị Lỗi</h2>
+            <p>Có vấn đề với thanh toán của bạn. Vui lòng thử lại hoặc liên hệ với bộ phận hỗ trợ.</p>
             <button className="back-to-home-btn" onClick={handleRetry}>
-              Back to Home
+              Quay lại Trang Chủ
             </button>
       </div>
     </div>

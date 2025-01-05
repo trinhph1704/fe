@@ -40,39 +40,39 @@ const Signup = () => {
       {/* Login Form Section */}
       <div className="login-form">
         <div className="container">
-          <h3>Welcome, Colordanhub</h3>
-          <p>Already have an account? <a href="register-5.html">Sign in now</a></p>
+          <h3>Chào Mừng Bạn Đến Với Colordanhub</h3>
+          <p>Bạn Đã Có Tài Khoản Rồi? <a href="/login">Đăng Nhập Ngay</a></p>
           <form onSubmit={handleSubmit}>
           <div className="input-group">
-              <label htmlFor="loginPassword">Full Name</label>
+              <label htmlFor="loginPassword">Họ Tên</label>
               <input
                 type="password"
                 id="loginPassword"
                 required
-                placeholder="Enter Your Full Name"
+                placeholder="Nhập Họ Tên Của Bạn"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
             <div className="input-group">
-              <label htmlFor="emailAddress">Username or Email Address</label>
+              <label htmlFor="emailAddress">Tên Đăng Nhập</label>
               <input
                 type="email"
                 id="emailAddress"
                 required
-                placeholder="Enter Your Email"
+                placeholder="Nhập Tài Khoản"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="input-group">
-              <label htmlFor="loginPassword">Password</label>
+              <label htmlFor="loginPassword">Mật Khẩu</label>
               <input
                 type="password"
                 id="loginPassword"
                 required
-                placeholder="Enter Password"
+                placeholder="Nhập Mật Khẩu"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -88,11 +88,11 @@ const Signup = () => {
               />
               <label htmlFor="remember-me">Keep me signed in</label>
             </div> */}
-            <button type="submit">Sign Up</button>
+            <button type="submit">Đăng Ký</button>
           </form>
           <div className='mutee'>
           <hr className="flex-grow-1" />
-  <span className="muted">Or sign in with</span>
+  <span className="muted">hoặc đăng nhập với</span>
   <hr className="flex-grow-1" />
   </div>
           <div className="social-login">

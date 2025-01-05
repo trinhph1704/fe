@@ -124,27 +124,27 @@ useEffect(() => {
       {/* Login Form Section */}
       <div className="login-form">
         <div className="container">
-          <h3>Welcome, Colordanhub</h3>
-          <p>New to Colordanhub? <a href="/Signup">Create an Account</a></p>
+          <h3>Chào Mừng Bạn Đến Với Colordanhub</h3>
+          <p>Bạn Chưa Có Tài Khoản Colordanhub? <a href="/Signup">Đăng Ký</a></p>
           <form onSubmit={handleSubmit}>
             <div className="input-group">
-              <label htmlFor="emailAddress">Username or Email Address</label>
+              <label htmlFor="emailAddress">Tên Đăng Nhập</label>
               <input
                 type="text"
                 id="emailAddress"
                 required
-                placeholder="Enter Your Email"
+                placeholder="Điền Tên Đăng NHập"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="input-group">
-              <label htmlFor="loginPassword">Password</label>
+              <label htmlFor="loginPassword">Mật Khẩu</label>
               <input
                 type="password"
                 id="loginPassword"
                 required
-                placeholder="Enter Password"
+                placeholder="Điền Mật Khẩu"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -157,13 +157,13 @@ useEffect(() => {
                 checked={rememberMe}
                 onChange={() => setRememberMe(!rememberMe)}
               />
-              <label htmlFor="remember-me">Keep me signed in</label>
+              <label htmlFor="remember-me">Lưu Thông Tin Đăng Nhập</label>
             </div>
-            <button type="submit">Sign In </button>
+            <button type="submit">Đăng Nhập</button>
           </form>
           <div className='mutee'>
           <hr className="flex-grow-1" />
-  <span className="muted">Or sign in with</span>
+  <span className="muted">Hoặc Đăng Nhập Với</span>
   <hr className="flex-grow-1" />
   </div>
           <div className="social-login">
@@ -171,7 +171,7 @@ useEffect(() => {
             <button className="google-btn">Google</button>
             <button className="twitter-btn">Twitter</button>
           </div>
-          <p>Need to find <a href="forgot-password-5.html">your password</a>?</p>
+          <p>Bạn Không Nhớ <a href="forgot-password-5.html">Mật Khẩu</a>?</p>
         </div>
       </div>
     </div>

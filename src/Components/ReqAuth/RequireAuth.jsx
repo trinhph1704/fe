@@ -12,7 +12,7 @@ const RequireAuth = ({ allowedRoles }) => {
     return (
         x && allowedRoles?.includes(roleId)
             ? <Outlet />
-            : <Navigate to="/log-in" state={{ from: location }} replace />
+            : <Navigate to="/login" state={{ from: location }} replace />
         // x ? <Outlet/> : <Navigate to="/log-in" state={{ from: location }} replace />
     );
 };

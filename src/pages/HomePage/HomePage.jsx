@@ -8,7 +8,7 @@ import HomeTro from "../../Components/User/Home/HomeTro";
 export default function HomePage() {
     return (
         <div id="HomePage">
-            {/* <Header /> */}
+            <Header />
             <HomeTro />
             <Footer />
         </div>

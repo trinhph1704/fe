@@ -70,7 +70,8 @@ const HomeTro = () => {
    
           
       <section className="search-section">
-      <div className="header-lo">
+        
+      {/* <div className="header-lo">
     <div className="logo-container-lo">
       <img src="public\36650c664e257c37760d0f7a27fe0a8d.jpg" alt="Logo" className="logo-lo" />
     </div>
@@ -78,7 +79,7 @@ const HomeTro = () => {
       <button className="login-button">Login</button>
       <button className="signup-button">Sign up</button>
     </div>
-  </div>
+  </div> */}
     
         <div className="overlay">
         
