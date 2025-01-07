@@ -28,7 +28,7 @@ export default function Header() {
             />
           </a>
           <nav className="navigation" aria-label="Main navigation">
-            <button className="navItem">TRANG CHỦ</button>
+            <button className="navItem"><a href="/Home" >TRANG CHỦ</a></button>
             <button className="navItem"><a href="/Course" >LỚP NHẢY</a></button>
             <button className="navItem">TIN TỨC</button>
             <button className="navItem">LIÊN HỆ</button>

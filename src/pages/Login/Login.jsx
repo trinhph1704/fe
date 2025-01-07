@@ -80,7 +80,7 @@ useEffect(() => {
               navigate('/content');
           }
           if (user.roleId === '3') {
-              navigate('/staff-page');
+              navigate('/contact');
               window.alert('Đăng nhập thành công');
           }
       } catch (error) {

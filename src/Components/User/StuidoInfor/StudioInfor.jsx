@@ -45,9 +45,25 @@ const StudioInfor = () => {
 
 
   ];
-  const closeModal = () => {
-    setSelectedImage(null);
-  };
+
+  // const fetchStudio = useCallback(async () => {
+  //   try {
+  //     const response = await api.get(
+  //       `https://cldhbe.azurewebsites.net/api/Studio/Get-Studio-By-Id?id=${id}`
+  //     );
+  //     console.log('API response:', response.data);
+  //     setstudio(response.data);
+  //   } catch (error) {
+  //     toast.error("Error fetching studio!");
+  //   }
+  // }, [id]);
+
+  // useEffect(() => {
+  //   fetchStudio();
+  // }, [fetchStudio]);
+  // const closeModal = () => {
+  //   setSelectedImage(null);
+  // };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
