@@ -90,9 +90,10 @@
 }
 
 #StudioInfor .studio-info {
-  margin-bottom: 20px;
+  position: relative;
   display: flex;
   justify-content: space-between;
+  height: 60vh;
 }
 
 #StudioInfor .studio-tags .tag {
@@ -103,14 +104,9 @@
   border-radius: 5px;
 }
 
-#StudioInfor .amenities-list .type-amen {
-  list-style: none;
-  padding: 5px 0;
-}
-
 #StudioInfor .booking-section {
-  margin-top: 5vh;
-  margin-right: 2vh;
+  position: absolute;
+  left: 65%;
 }
 
 #StudioInfor .price-details {
@@ -126,14 +122,14 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  height: 70vh; 
+  height: 70vh;
 }
 
 #StudioInfor .image-gallery {
   display: grid;
   grid-template-areas:
-    "image-main image-thumbnails"
-    "image-main image-thumbnails";
+      "image-main image-thumbnails"
+      "image-main image-thumbnails";
   gap: 20px;
 }
 
@@ -188,7 +184,7 @@
   width: 60%;
   justify-items: left;
   height: 30vh;
-  margin-bottom: 40vh;
+  margin-bottom: 30vh;
 }
 
 #StudioInfor .studio-name {
@@ -224,7 +220,7 @@
 }
 
 #StudioInfor .price-title {
-  margin-left: 15vh;
+  margin-left: 20vh;
 }
 
 #StudioInfor .booking-form {
@@ -235,13 +231,12 @@
 }
 
 #StudioInfor .btn-booking {
-  margin-top: 6vh;
+  margin-top: 1vh;
 }
 
 #StudioInfor .start-Date {
   width: 100%;
-  margin-top: 5vh;
-  margin-left: 4.5vh;
+  margin-left: 7vh;
 }
 
 #StudioInfor #date {
@@ -252,14 +247,12 @@
 }
 
 #StudioInfor .dateandtime {
-  margin-left: 10%;
+  margin-left: 30%;
 }
 
 #StudioInfor .timechua {
-  margin-top: 40px;
-  margin-left: 4.5vh;
+  margin-left: 7vh;
   width: 100%;
-  display: flex;
 }
 
 #StudioInfor #time {
@@ -267,10 +260,6 @@
   height: 5vh;
   background-color: white;
   color: black;
-}
-
-#StudioInfor .endtime {
-  margin-left: 4vh;
 }
 
 #StudioInfor .booking-button {
@@ -285,8 +274,6 @@
 
 #StudioInfor .reviews-section {
   color: black;
-  display: flex;
-  flex-wrap: wrap;
   margin-top: 20px;
   width: 60%;
 }
@@ -296,9 +283,11 @@
 }
 
 #StudioInfor .review {
-  width: 50%;
+  width: 100%;
   margin-top: 30px;
   margin-bottom: 30px;
+  display: flex;
+  border-bottom: 1px solid #ccc;
 }
 
 #StudioInfor .amenities-list {
@@ -308,22 +297,28 @@
 }
 
 #StudioInfor .amenities-list .type-amen {
+  list-style: none;
+  padding: 5px 0;
   width: 50%;
+  margin-top: 20px;
+}
+
+#StudioInfor .phukien {
+  margin-left: 5px;
 }
 
 #StudioInfor .amenities-section {
   width: 50%;
-  margin-left: 5vh;
 }
 
 #StudioInfor .price-title {
-  display: flex; 
-  align-items: center; 
-  gap: 8px; 
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 #StudioInfor .dollar {
-  font-size: 24px; 
+  font-size: 24px;
   color: black;
 }
 
@@ -352,7 +347,7 @@
 }
 
 #StudioInfor .image-main {
-  width: 100%; 
+  width: 100%;
   height: 70vh;
   display: flex;
   justify-content: center;
@@ -394,6 +389,7 @@
   margin-bottom: 20px;
   font-weight: bold;
   color: black;
+  margin-left: 5vh;
 }
 
 #StudioInfor .image-with-overlay {
@@ -403,14 +399,18 @@
 
 #StudioInfor .overlay-text {
   position: absolute;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: white;
-  background-color: rgba(0, 0, 0, 0.5);
+  color: white; /* Màu chữ */
+  background-color: rgba(0, 0, 0, 0.5); /* Nền mờ */
   padding: 5px 10px;
   border-radius: 5px;
   font-size: 14px;
   font-weight: bold;
   text-align: center;
+}
+#StudioInfor .reviewdate{
+  color: rgb(189, 185, 185);
 }

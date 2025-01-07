@@ -1,136 +1,125 @@
-import React, { useState , useEffect} from "react";
+import React, { useState,useCallback,useEffect } from "react";
 import "./StudioInfor.css";
+import { toast, ToastContainer } from 'react-toastify';
+import api from '../components/utils/requestAPI';
 import { CiDollar } from "react-icons/ci";
+import { useParams,useNavigate } from 'react-router-dom';
 import { FaStar } from "react-icons/fa6";
-import { useParams } from 'react-router-dom';
-import api from '../../utils/requestAPI';
-import useAuth from '../../../hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
+import { MdLightMode } from "react-icons/md";
+import { MdCleaningServices } from "react-icons/md";
+import { FaWifi } from "react-icons/fa6";
+import { FaRegNewspaper } from "react-icons/fa";
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import dayjs from 'dayjs';
 const StudioInfor = () => {
   const [selectedImage, setSelectedImage] = useState(null); 
   const [isGroupOpened, setIsGroupOpened] = useState(false); 
-  const [date, setDate] = useState('');
-  const [startTime, setStartTime] = useState('');
-  const [booking, setBooking] = useState('');
-    const [orderId, setOrderId] = useState('');
-  const [endTime, setEndTime] = useState('');
-  const navigate = useNavigate();
-  const { auth } = useAuth();
+  const [studio, setstudio] = useState([]);
+  const [stardate, setstardate] = useState(dayjs());
+  const [checkin, setcheckin] = useState(dayjs());
+  const [checkout, setcheckout] = useState(dayjs());
   const { id } = useParams();
+  const navigate = useNavigate();
+  const [images, setImages] = useState([]);
 
-  const images = [
-    { src: "https://vkingdecor.com/wp-content/uploads/2024/12/89a00a01a5d266e8a4e8a5072795cd55.jpg", name: "Hình 1" },
-    { src: "https://vkingdecor.com/wp-content/uploads/2024/12/89a00a01a5d266e8a4e8a5072795cd55.jpg", name: "Hình 2" },
-    { src: "https://vkingdecor.com/wp-content/uploads/2024/12/89a00a01a5d266e8a4e8a5072795cd55.jpg", name: "Hình 3" },
-    { src: "https://vkingdecor.com/wp-content/uploads/2024/12/89a00a01a5d266e8a4e8a5072795cd55.jpg", name: "Hình 4" },
-    { src: "https://vkingdecor.com/wp-content/uploads/2024/12/89a00a01a5d266e8a4e8a5072795cd55.jpg", name: "Hình 5" },
-    { src: "https://vkingdecor.com/wp-content/uploads/2024/12/89a00a01a5d266e8a4e8a5072795cd55.jpg", name: "Hình 5" },
-    { src: "https://vkingdecor.com/wp-content/uploads/2024/12/89a00a01a5d266e8a4e8a5072795cd55.jpg", name: "Hình 5" },
-    { src: "https://vkingdecor.com/wp-content/uploads/2024/12/89a00a01a5d266e8a4e8a5072795cd55.jpg", name: "Hình 5" },
-  ];
+  const fetchStudio = useCallback(async () => {
+    try {
+      const response = await api.get(
+        `https://cldhbe.azurewebsites.net/api/Studio/Get-Studio-By-Id?id=${id}`
+      );
+  
+      console.log("API response:", response.data);
+      const data = response.data;
+  
+      setstudio(data); // Lưu thông tin studio
+  
+      // Trích xuất danh sách ảnh
+      const studioImages = [
+        data.image?.imageUrl1 && { src: data.image.imageUrl1, name: "Hình 1" },
+        data.image?.imageUrl2 && { src: data.image.imageUrl2, name: "Hình 2" },
+        data.image?.imageUrl3 && { src: data.image.imageUrl3, name: "Hình 3" },
+        data.image?.imageUrl4 && { src: data.image.imageUrl4, name: "Hình 4" },
+        {src:"/ee53ddddc8801eaa90470f5c25934df9.jpg", name:"Hình 5"},
+        {src:"/ee53ddddc8801eaa90470f5c25934df9.jpg", name:"Hình 6"},
+        {src:"/ee53ddddc8801eaa90470f5c25934df9.jpg", name:"Hình 7"},
+        {src:"/ee53ddddc8801eaa90470f5c25934df9.jpg", name:"Hình 8"},
+      ].filter(Boolean); 
+  
+      setImages(studioImages); // Cập nhật images
+    } catch (error) {
+      toast.error("Error fetching studio!");
+    }
+  }, [id]);
+  
+  useEffect(() => {
+    fetchStudio();
+  }, [fetchStudio]);
+
+  // const images = [
+   
+  //   { src: "/ee53ddddc8801eaa90470f5c25934df9.jpg", name: "Hình 2" },
+  //   { src: "/ee53ddddc8801eaa90470f5c25934df9.jpg", name: "Hình 3" },
+  //   { src: "/ee53ddddc8801eaa90470f5c25934df9.jpg", name: "Hình 4" },
+  //   { src: "/ee53ddddc8801eaa90470f5c25934df9.jpg", name: "Hình 5" },
+  //   { src: "/ee53ddddc8801eaa90470f5c25934df9.jpg", name: "Hình 5" },
+  //   { src: "/ee53ddddc8801eaa90470f5c25934df9.jpg", name: "Hình 5" },
+  //   { src: "/ee53ddddc8801eaa90470f5c25934df9.jpg", name: "Hình 5" },
+  // ];
   const dancerMasters = [
-    { img: "https://chiemtaimobile.vn/images/companies/1/%E1%BA%A2nh%20Blog/avatar-facebook-dep/Anh-avatar-hoat-hinh-de-thuong-co-be-doi-mu.jpeg?1704788068824",name: "Alice Johnson", specialty: "Hip Hop" },
-    {img: "https://chiemtaimobile.vn/images/companies/1/%E1%BA%A2nh%20Blog/avatar-facebook-dep/Anh-avatar-hoat-hinh-de-thuong-co-be-doi-mu.jpeg?1704788068824", name: "Bob Smith", specialty: "Ballet" },
-    { img: "https://chiemtaimobile.vn/images/companies/1/%E1%BA%A2nh%20Blog/avatar-facebook-dep/Anh-avatar-hoat-hinh-de-thuong-co-be-doi-mu.jpeg?1704788068824",name: "Charlie Brown", specialty: "Contemporary" },
-    { img: "https://chiemtaimobile.vn/images/companies/1/%E1%BA%A2nh%20Blog/avatar-facebook-dep/Anh-avatar-hoat-hinh-de-thuong-co-be-doi-mu.jpeg?1704788068824",name: "Diana Prince", specialty: "Jazz" },
+    { img: "/ec46334718d4ee1a37ca49cd652a194d.jpg",name: "Alice Johnson", specialty: "Hip Hop" },
+    {img: "/0f84d7257569027cfba8ab80b5f2af88.jpg", name: "Bob Smith", specialty: "Ballet" },
+    { img: "/92075231ccb6efb21748b2e7f2d9cdbd.jpg",name: "Charlie Brown", specialty: "Contemporary" },
+    { img: "/7ba53e7463b4afd2c728f9beb59b65ac.jpg",name: "Diana Prince", specialty: "Jazz" },
   ];
   const Reviewer = [
 
-{ img: "https://chiemtaimobile.vn/images/companies/1/%E1%BA%A2nh%20Blog/avatar-facebook-dep/Anh-avatar-hoat-hinh-de-thuong-co-be-doi-mu.jpeg?1704788068824", date:"12/10/2024", name:"Mr Vinh", cmt:"Great studio with amazing amenities!"    },
-{ img: "https://chiemtaimobile.vn/images/companies/1/%E1%BA%A2nh%20Blog/avatar-facebook-dep/Anh-avatar-hoat-hinh-de-thuong-co-be-doi-mu.jpeg?1704788068824", date:"13/10/2024", name:"Meo Meo", cmt:"Excellent location and service."    },
-{ img: "https://chiemtaimobile.vn/images/companies/1/%E1%BA%A2nh%20Blog/avatar-facebook-dep/Anh-avatar-hoat-hinh-de-thuong-co-be-doi-mu.jpeg?1704788068824", date:"14/10/2024", name:"Trịnh Trần Phương Tuấn", cmt:"Wonderful experience. Highly recommend!"    },
+{ img: "/ec46334718d4ee1a37ca49cd652a194d.jpg", date:"12/10/2024", name:"Mr Vinh", cmt:"Studio tuyệt vời với những tiện nghi tuyệt vời!"    },
+{ img: "/0f84d7257569027cfba8ab80b5f2af88.jpg", date:"13/10/2024", name:"Meo Meo", cmt:"Dịch vụ tuyệt vời"    },
+{ img: "/92075231ccb6efb21748b2e7f2d9cdbd.jpg", date:"14/10/2024", name:"Trịnh Trần Phương Tuấn", cmt:"Quá vừa ý với trải nghiệm thật tốt"    },
 
 
 
 
 
   ];
-
-  // const fetchStudio = useCallback(async () => {
-  //   try {
-  //     const response = await api.get(
-  //       `https://cldhbe.azurewebsites.net/api/Studio/Get-Studio-By-Id?id=${id}`
-  //     );
-  //     console.log('API response:', response.data);
-  //     setstudio(response.data);
-  //   } catch (error) {
-  //     toast.error("Error fetching studio!");
-  //   }
-  // }, [id]);
-
-  // useEffect(() => {
-  //   fetchStudio();
-  // }, [fetchStudio]);
-  // const closeModal = () => {
-  //   setSelectedImage(null);
-  // };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (!date || !startTime || !endTime) {
-      alert('Please fill in all the fields');
-      return;
-    }
-  
-    const bookingData = {
-      accountId: auth.user.id,
-      studioId: id,
-      bookingDate: date,
-      checkIn: startTime,
-      checkOut: endTime,
-      totalPrice: "500",
-    };
-  
-    try {
-      // Tạo Booking mới
-      const createClassPayment = await api.post(
-        `/Add-New-Booking`,
-        bookingData
-      );
-  
-      if (createClassPayment.status === 200 && createClassPayment.data && createClassPayment.data.id) {
-        const BookingId = createClassPayment.data.id;
-        console.log("Booking created successfully, ID:", BookingId);
-        setBooking({ id: BookingId }); // Đảm bảo lưu dưới dạng object với `id`
-      }
-    } catch (error) {
-      console.error("Error creating booking:", error);
-      console.log(bookingData )
-    }
-    
+  const closeModal = () => {
+    setSelectedImage(null);
   };
-  useEffect(() => {
-    // Theo dõi sự thay đổi của `classBooking`
-    const createOrderAndPayment = async () => {
-      if (booking && booking.id) {
-        try {
-          // Tạo Order mới
-          const createOrder = await api.post(
-            `/Create-New-Order?BookingId=${booking.id}`
-          );
+ 
+  const handleDateChange = (newDate) => {
+    setstardate(newDate); // Cập nhật giá trị stardate
+  };
   
-          if (createOrder.status === 200 && createOrder.data && createOrder.data.id) {
-            const orderId = createOrder.data.id;
-            console.log("Order created successfully, ID:", orderId);
-            setOrderId(orderId); // Đảm bảo lưu dưới dạng object với `id`
-          } else {
-            console.error("Order creation failed or response is missing 'id'.", createOrder);
-          }
-        } catch (error) {
-          console.error("Error creating order:", error);
-        }
-      }
-    };
-  
-    createOrderAndPayment();
-  }, [booking]);
+  const handleBooking = async (e) => { 
+    e.preventDefault();
+    const url = 'https://cldhbe.azurewebsites.net/Add-New-Booking';
+    const data = {
+      accountId:"AC3ba67",
+      studioId:id,
+      bookingDate:stardate,
+      checkIn:checkin,
+      checkOut:checkout,
+      
 
-  useEffect(() => {
-    if (orderId) {
-      navigate(`/order/${orderId}`); // Điều hướng khi `orderId` đã có
+
+
+    };
+    try {
+      const response = await api.post(url, data);
+      console.log(response.data);
+      alert('Create Booking Success!');
+      navigate(`/order/${response.data.id}`);
+    } catch (error) {
+      console.error(error);
+      
     }
-  }, [orderId, navigate]);
-  
+  };
+
+
   return (
     <div id="StudioInfor">
     <div className="studio-page">
@@ -138,10 +127,10 @@ const StudioInfor = () => {
       <div className="image-gallery">
         <div className="image-main">
           <img
-            src={images[0].src}
-            alt={images[0].name}
+            src={studio.imageStudio}
+            alt=""
             className="main-img"
-            onClick={() => setSelectedImage(images[0].src)}
+            onClick={() => setSelectedImage(studio.imageStudio)}
           />
          
         </div>
@@ -164,14 +153,14 @@ const StudioInfor = () => {
 <div className="grouped-images" onClick={() => setIsGroupOpened(!isGroupOpened)}>
   {!isGroupOpened ? (
     <div className="grouped-images-placeholder">
-      {/* Hiển thị hình số 5 */}
+    
       <div className="image-with-overlay">
         <img
-          src={images[6].src} // Hình số 5 (index 4)
-          alt={images[6].name}
+         src={images[5]?.src} 
+         
           className="gallery-img"
         />
-        {/* Chữ +2 more nằm trên hình */}
+       
         <div className="overlay-text">
           +{images.length - 6} more
         </div>
@@ -212,12 +201,10 @@ const StudioInfor = () => {
       <div className="studio-info">
         <div className="info-title">
 
-        <h1 className="studio-name">F-Stop Photography Studio Rentals
-        Photography/Video Rental Space For Professional Centrally Located In Tampa</h1>
-        <h1 className="studio-adress">Readville,
-        Boston, MA</h1>
-
-        <h2 className="studio-title">Dancing Master</h2>
+        <h1 className="studio-name">{studio.studioName}</h1>
+        <h1 className="studio-adress">{studio.studioAddress}</h1>
+        <hr  width="100%" align="left" />
+        <h2 className="studio-title">Giảng viên</h2>
           <div className="dance-master-chua">
 
           <ul className="dancer-masters-list">
@@ -230,6 +217,7 @@ const StudioInfor = () => {
             </li>
           ))}
         </ul>
+        <hr  width="100%" align="left" top="10px"/>
 
           </div>
 
@@ -240,69 +228,84 @@ const StudioInfor = () => {
              
         <h3 className="price-title">
   <CiDollar className="dollar" />
-  <span className="price-text">Price</span>
+  <span className="price-text">Giá</span>
 </h3>
          
        
           <div className="price-details">
-            <span className="price">$50/hour</span>
+            <span className="price">{studio.pricing}VND/Giờ</span>
             <span className="discount">10% off</span>
           </div>
-          <form className="booking-form" onSubmit={handleSubmit}>
-      <div>
-        <h3 className="dateandtime">Date and Time</h3>
-      </div>
-      <div className="start-Date">
-        <input
-          type="date"
-          id="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-        />
-      </div>
-      <div className="timechua">
-        <input
-          type="time"
-          id="start-time"
-          className="starttime"
-          value={startTime}
-          onChange={(e) => setStartTime(e.target.value)}
-        />
-        <input
-          type="time"
-          id="end-time"
-          className="endtime"
-          value={endTime}
-          onChange={(e) => setEndTime(e.target.value)}
-        />
-      </div>
-      <div className="btn-booking">
-        <button type="submit" className="booking-button">
-          Book Now
-        </button>
-      </div>
-    </form>
+          <form className="booking-form" onSubmit={handleBooking}>
+            <div>
+
+<h3 className="dateandtime">Ngày và Giờ</h3>
+
+            </div>
+            <div className="start-Date">
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DemoContainer  components={['DatePicker']}>
+        <DatePicker value={stardate} onChange={(e)=>setstardate(e.target.value)} label="Ngày bắt đầu" />
+      </DemoContainer>
+    </LocalizationProvider>
+    </div>
+           
+<div className="timechua">  
+<LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DemoContainer    components={['TimePicker']}>
+        <TimePicker className="starttime" value={checkin} onChange={(e)=> setcheckin(e.target.value)} label="Thời gian bắt đầu" />
+      </DemoContainer>
+    </LocalizationProvider>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DemoContainer  components={['TimePicker']}>
+        <TimePicker id="time" className="endtime" value={checkout} onChange={(e)=> setcheckout(e.target.value)} label="Thời gian kết thúc" />
+      </DemoContainer>
+    </LocalizationProvider>
+
+            {/* <input type="time" id="time" className="starttime" value={checkin} onChange={(e)=> setcheckin(e.target.value)} />
+            <input type="time" id="time" className="endtime" value={checkout} onChange={(e)=> setcheckout(e.target.value)} /> */}
+  </div>
+           <div className="btn-booking">
+             <button type="submit" className="booking-button" >
+             Đặt Ngay
+            </button>
+           </div>
+           
+          </form>
         </div>
       
       </div>
 
       {/* Danh sách tiện ích */}
       <div className="amenities-section">
-        <h2 className="amen-title">Offered Amenities</h2>
-        <ul className="amenities-list">
-          <li className="type-amen">Type 01</li>
-          <li className="type-amen">Type 02</li>
-          <li className="type-amen">Type 03</li>
-          <li className="type-amen">Type 04</li>
-        </ul>
-      </div>
+  <h2 className="amen-title">Tiện nghi được cung cấp</h2>
+  <ul className="amenities-list">
+    <li className="type-amen">
+      <MdLightMode />
+      <span className="phukien">Ánh sáng</span>
+    </li>
+    <li className="type-amen">
+    <MdCleaningServices />
+      <span className="phukien">Không gian</span>
+    </li>
+    <li className="type-amen">
+    <FaWifi />
+      <span className="phukien">Wifi</span>
+    </li>
+    <li className="type-amen">
+    <FaRegNewspaper />
+      <span className="phukien">Quy định</span>
+    </li>
+  </ul>
+</div>
+      <hr  width="60%" align="left" top="10px"/>
 
      <div className="review-chua">
       <div className="review-vui">
        
-        <h2 className="review-title">Reviews</h2>
-        <h2 className="rate-review">5</h2>
-     <FaStar className="star-review" />
+        <h2 className="review-title">Đánh giá</h2>
+        <h2 className="rate-review">(3)</h2>
+     
       </div>
      
       <div className="reviews-section">
@@ -310,15 +313,28 @@ const StudioInfor = () => {
             
          
         <div className="review">
-         <img src={review.img} alt="" className="hinh-reviewer" />
-          <p>
-            <strong>{review.name}</strong> ({review.date})
-          </p>
-          <p>{review.cmt}</p>
+          <div>
+             <img src={review.img} alt="" className="hinh-reviewer" />
+            
+          </div>
+        <div>
+        <strong>{review.name}</strong>
+        <p>{review.cmt}</p>
+        <p className="reviewdate">
+                  ({review.date})
+                </p>
         </div>
-         ))}
-      
+       
+        {index < review.length - 1 && <hr className="review-divider" width="60%" />}
+        </div>
         
+        
+       
+     
+         ))}
+        
+      
+      
       </div></div>
     </div>
     </div>
@@ -326,3 +342,4 @@ const StudioInfor = () => {
 };
 
 export default StudioInfor;
+    

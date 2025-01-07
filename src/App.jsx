@@ -75,6 +75,7 @@ function App() {
 <Route path="/checkcancel" element={<ErrorPage />} />
 <Route path="/contact" element={<ContactPage />} />
 <Route path="/Reservation" element={<ReservationPage/>} />
+<Route path="/searchpage" element={<SearchPage />} />
 {/* <Route path="/hometro" element={<HomeTro />} /> */}
       </Routes>
     </>
